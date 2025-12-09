@@ -1,0 +1,285 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================= */
+/* 🎨 Element Plus 深色主题终极覆盖 (Dark Theme Overrides)             */
+/* ================================================================= */
+
+:root {
+  /* 1. 全局背景色变量覆盖 */
+  --el-bg-color: #0F1C2E;            /* 页面底色 */
+  --el-bg-color-overlay: #1f2b3e;    /* 🚨关键：下拉菜单/弹窗的背景色 */
+  --el-fill-color-blank: #374357;    /* 输入框默认背景 */
+  
+  /* 2. 文字颜色覆盖 */
+  --el-text-color-primary: #FFFFFF;
+  --el-text-color-regular: #e0e0e0;
+  --el-text-color-secondary: #a3a3a3;
+  --el-text-color-placeholder: #6b7280;
+
+  /* 3. 边框颜色覆盖 */
+  --el-border-color: #4d648d;
+  --el-border-color-light: #374357;
+  --el-border-color-lighter: #374357;
+}
+
+/* ================================================================= */
+/* 🛠️ 组件级强制修复 (Fix Specific Components)                        */
+/* ================================================================= */
+
+/* 1. 输入框 (Input) & 选择框 (Select) & 文本域 (Textarea) */
+.el-input__wrapper,
+.el-textarea__inner {
+  background-color: #374357 !important; /* bg-300 */
+  box-shadow: 0 0 0 1px #4d648d inset !important; /* 边框颜色 */
+  color: white !important;
+}
+
+/* 输入框文字颜色 */
+.el-input__inner {
+  color: white !important;
+}
+
+/* 2. 下拉菜单/弹出列表 (Select Dropdown) */
+/* 必须强制覆盖，因为它们通常挂载在 body 上 */
+.el-select__popper.el-popper,
+.el-dropdown__popper.el-popper,
+.el-picker__popper.el-popper {
+  background-color: #1f2b3e !important; /* bg-200 */
+  border: 1px solid #4d648d !important;
+}
+
+.el-select-dropdown__item {
+  color: #e0e0e0 !important;
+}
+
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
+  background-color: #374357 !important; /* 鼠标悬停时的背景 */
+  color: white !important;
+}
+
+.el-select-dropdown__item.is-selected {
+  background-color: #3D5A80 !important; /* 选中项背景 */
+  color: white !important;
+  font-weight: bold;
+}
+
+/* 3. 表格 (Table) 去除白色背景 */
+.el-table {
+  --el-table-bg-color: transparent !important;
+  --el-table-tr-bg-color: transparent !important;
+  --el-table-header-bg-color: #1f2b3e !important;
+  --el-table-row-hover-bg-color: #374357 !important;
+  --el-table-border-color: #374357 !important;
+  color: #e0e0e0 !important;
+  background-color: transparent !important;
+}
+.el-table th.el-table__cell {
+  background-color: #1f2b3e !important; /* 表头背景 */
+  color: white !important;
+}
+
+/* 4. 分页器 (Pagination) */
+.el-pagination .btn-prev,
+.el-pagination .btn-next,
+.el-pagination button,
+.el-pagination li {
+  background-color: #1f2b3e !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #374357;
+}
+.el-pagination li.is-active {
+  background-color: #3D5A80 !important; /* 选中页码 */
+  color: white !important;
+  border-color: #3D5A80 !important;
+}
+
+/* 5. 弹窗 (Dialog/Drawer) */
+.el-dialog, .el-drawer {
+  background-color: #1f2b3e !important;
+  border: 1px solid #4d648d;
+}
+.el-dialog__title, .el-drawer__title {
+  color: white !important;
+}
+.el-dialog__body, .el-drawer__body {
+  color: #e0e0e0 !important;
+}
+
+/* 6. Tabs (你刚才遇到的问题) */
+.el-tabs__item {
+  color: #94a3b8 !important;
+}
+.el-tabs__item.is-active {
+  color: #FFFFFF !important;
+}
+.el-tabs__item:hover {
+  color: #cee8ff !important;
+}
+.el-tabs__nav-wrap::after {
+  background-color: #374357 !important;
+}
+
+/* ========================================= */
+/* 🔢 修复数字输入框 (Input Number) 加减号看不清 */
+/* ========================================= */
+.el-input-number__decrease,
+.el-input-number__increase {
+  background-color: #1f2b3e !important; /* bg-200 */
+  color: white !important;
+  border-left-color: #4d648d !important; /* 边框色 */
+  border-right-color: #4d648d !important;
+}
+
+/* 禁用状态 */
+.el-input-number.is-disabled .el-input-number__decrease,
+.el-input-number.is-disabled .el-input-number__increase {
+  color: #6b7280 !important;
+}
+
+/* 修复加减号中间的输入框边框 */
+.el-input-number .el-input__wrapper {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+
+/* ========================================= */
+/* 💬 修复 MessageBox (确认弹窗) 深色模式 */
+/* ========================================= */
+.el-message-box {
+  background-color: #1f2b3e !important; /* bg-200 */
+  border: 1px solid #4d648d !important;
+  --el-message-box-title-color: white !important;
+  --el-message-box-content-color: #e0e0e0 !important;
+}
+
+/* 修复弹窗内的关闭按钮颜色 */
+.el-message-box .el-message-box__headerbtn .el-message-box__close {
+  color: #e0e0e0 !important;
+}
+.el-message-box .el-message-box__headerbtn:hover .el-message-box__close {
+  color: #3D5A80 !important;
+}
+
+
+/* ========================================= */
+/* 💬 修复 MessageBox (确认弹窗) 深色模式 */
+/* ========================================= */
+.el-message-box {
+  background-color: #1f2b3e !important; /* bg-200 */
+  border: 1px solid #4d648d !important;
+  --el-message-box-title-color: white !important;
+  --el-message-box-content-color: #e0e0e0 !important;
+}
+
+/* 修复弹窗内的关闭按钮颜色 */
+.el-message-box .el-message-box__headerbtn .el-message-box__close {
+  color: #e0e0e0 !important;
+}
+.el-message-box .el-message-box__headerbtn:hover .el-message-box__close {
+  color: #3D5A80 !important;
+}
+
+
+/* ========================================= */
+/* 🚀 修复侧边栏折叠卡顿 (Sidebar Animation Fix) */
+/* ========================================= */
+
+/* 1. 强制菜单在未折叠时保持固定宽度 */
+/* 这里的 220px 必须和 MainLayout 中的 :width="... '220px'" 保持一致 */
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 220px;
+}
+
+/* 2. 优化子菜单弹出的样式 */
+.el-menu--popup {
+  background-color: #1f2b3e !important;
+  border: 1px solid #374357 !important;
+}
+
+/* 3. 修复折叠时图标稍微偏左的问题，让它居中 */
+.el-menu--collapse .el-sub-menu__title,
+.el-menu--collapse .el-menu-item {
+  display: flex !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+.el-menu--collapse .el-icon {
+  margin: 0 !important;
+}
+
+
+/* ========================================= */
+/* 📜 滚动条美化 (Dark Scrollbar)             */
+/* ========================================= */
+
+/* 滚动条整体宽度 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* 滚动条轨道 (背景) */
+::-webkit-scrollbar-track {
+  background: #1f2b3e; /* bg-200 */
+  border-radius: 3px;
+}
+
+/* 滚动条滑块 (移动部分) */
+::-webkit-scrollbar-thumb {
+  background: #374357; /* bg-300 */
+  border-radius: 3px;
+}
+
+/* 滑块悬停状态 */
+::-webkit-scrollbar-thumb:hover {
+  background: #4d648d; /* primary-200 */
+}
+
+
+/* ========================================= */
+/* 🔽 修复下拉菜单 (Dropdown) 悬停白块问题     */
+/* ========================================= */
+
+/* 1. 正常状态下的文字颜色 */
+.el-dropdown-menu__item {
+  color: #e0e0e0 !important;
+  transition: all 0.2s;
+}
+
+/* 2. 鼠标悬停 (Hover) 或 聚焦 (Focus) 时的样式 */
+/* 关键修复：把背景改成深灰色 (#374357)，文字改成纯白 */
+.el-dropdown-menu__item:not(.is-disabled):focus,
+.el-dropdown-menu__item:not(.is-disabled):hover {
+  background-color: #374357 !important; /* bg-300 */
+  color: #ffffff !important;
+}
+
+/* 3. 修复分割线颜色 */
+.el-dropdown-menu__item--divided {
+  border-top-color: #374357 !important;
+}
+.el-dropdown-menu__item--divided:before {
+  background-color: #374357 !important;
+}
+
+/* ========================================= */
+/* 🔔 消息通知 Popover 样式适配               */
+/* ========================================= */
+
+/* 1. 覆盖 Popover 容器的背景色和边框 */
+.el-popover.msg-popover {
+  background-color: #1f2b3e !important; /* bg-200 */
+  border: 1px solid #374357 !important;
+  padding: 0 !important; /* 去除默认内边距 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 2. 覆盖箭头颜色 */
+.el-popover.msg-popover .el-popper__arrow::before {
+  background-color: #1f2b3e !important;
+  border: 1px solid #374357 !important;
+}

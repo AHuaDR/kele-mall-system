@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.CmsChatSessionMapper">
+  <resultMap id="BaseResultMap" type="com.my.model.CmsChatSession">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="member_id" jdbcType="BIGINT" property="memberId" />
+    <result column="member_nick" jdbcType="VARCHAR" property="memberNick" />
+    <result column="member_avatar" jdbcType="VARCHAR" property="memberAvatar" />
+    <result column="admin_id" jdbcType="BIGINT" property="adminId" />
+    <result column="last_content" jdbcType="VARCHAR" property="lastContent" />
+    <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
+    <result column="unread_count" jdbcType="INTEGER" property="unreadCount" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, member_id, member_nick, member_avatar, admin_id, last_content, last_time, unread_count, 
+    `status`
+  </sql>
+    <select id="selectAllSessionList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cms_chat_session
+    </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cms_chat_session
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cms_chat_session
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.my.model.CmsChatSession" useGeneratedKeys="true">
+    insert into cms_chat_session (member_id, member_nick, member_avatar, 
+      admin_id, last_content, last_time, 
+      unread_count, `status`)
+    values (#{memberId,jdbcType=BIGINT}, #{memberNick,jdbcType=VARCHAR}, #{memberAvatar,jdbcType=VARCHAR}, 
+      #{adminId,jdbcType=BIGINT}, #{lastContent,jdbcType=VARCHAR}, #{lastTime,jdbcType=TIMESTAMP}, 
+      #{unreadCount,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.my.model.CmsChatSession" useGeneratedKeys="true">
+    insert into cms_chat_session
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberId != null">
+        member_id,
+      </if>
+      <if test="memberNick != null">
+        member_nick,
+      </if>
+      <if test="memberAvatar != null">
+        member_avatar,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="lastContent != null">
+        last_content,
+      </if>
+      <if test="lastTime != null">
+        last_time,
+      </if>
+      <if test="unreadCount != null">
+        unread_count,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberId != null">
+        #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="memberNick != null">
+        #{memberNick,jdbcType=VARCHAR},
+      </if>
+      <if test="memberAvatar != null">
+        #{memberAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="lastContent != null">
+        #{lastContent,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unreadCount != null">
+        #{unreadCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.model.CmsChatSession">
+    update cms_chat_session
+    <set>
+      <if test="memberId != null">
+        member_id = #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="memberNick != null">
+        member_nick = #{memberNick,jdbcType=VARCHAR},
+      </if>
+      <if test="memberAvatar != null">
+        member_avatar = #{memberAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=BIGINT},
+      </if>
+      <if test="lastContent != null">
+        last_content = #{lastContent,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null">
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unreadCount != null">
+        unread_count = #{unreadCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.model.CmsChatSession">
+    update cms_chat_session
+    set member_id = #{memberId,jdbcType=BIGINT},
+      member_nick = #{memberNick,jdbcType=VARCHAR},
+      member_avatar = #{memberAvatar,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=BIGINT},
+      last_content = #{lastContent,jdbcType=VARCHAR},
+      last_time = #{lastTime,jdbcType=TIMESTAMP},
+      unread_count = #{unreadCount,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

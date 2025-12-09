@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.PmsSkuStockMapper">
+  <resultMap id="BaseResultMap" type="com.my.model.PmsSkuStock">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="low_stock" jdbcType="INTEGER" property="lowStock" />
+    <result column="sp1" jdbcType="VARCHAR" property="sp1" />
+    <result column="sp2" jdbcType="VARCHAR" property="sp2" />
+    <result column="sp3" jdbcType="VARCHAR" property="sp3" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+  </resultMap>
+
+    <resultMap id="SelectByKeywordResultMap" type="com.my.model.PmsSkuStock">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="product_id" jdbcType="BIGINT" property="productId" />
+        <result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
+        <result column="price" jdbcType="DECIMAL" property="price" />
+        <result column="stock" jdbcType="INTEGER" property="stock" />
+        <result column="low_stock" jdbcType="INTEGER" property="lowStock" />
+        <result column="sp1" jdbcType="VARCHAR" property="sp1" />
+        <result column="sp2" jdbcType="VARCHAR" property="sp2" />
+        <result column="sp3" jdbcType="VARCHAR" property="sp3" />
+        <result column="pic" jdbcType="VARCHAR" property="pic" />
+        <!--一对一关联-->
+        <association property="productDO" javaType="com.my.model.PmsProduct">
+            <id column="productId" property="id"/>
+            <result column="productName" property="name"/>
+        </association>
+    </resultMap>
+  <sql id="Base_Column_List">
+    id, product_id, sku_code, price, stock, low_stock, sp1, sp2, sp3, pic
+  </sql>
+    <select id="selectAllListByKeyword" resultMap="SelectByKeywordResultMap">
+        select
+        pss.*,
+        pp.id productId,
+        pp.name ProductName
+        from pms_sku_stock pss
+            left join pms_product pp ON pss.product_id = pp.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                <if test="isSkuCodeFlag == false">
+                    AND pp.name Like CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
+                </if>
+                <if test="isSkuCodeFlag == true">
+                    AND pss.sku_code = #{keyword,jdbcType=VARCHAR}
+                </if>
+            </if>
+        </where>
+    </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pms_sku_stock
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from pms_sku_stock
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.my.model.PmsSkuStock" useGeneratedKeys="true">
+    insert into pms_sku_stock (product_id, sku_code, price, 
+      stock, low_stock, sp1, 
+      sp2, sp3, pic)
+    values (#{productId,jdbcType=BIGINT}, #{skuCode,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{stock,jdbcType=INTEGER}, #{lowStock,jdbcType=INTEGER}, #{sp1,jdbcType=VARCHAR}, 
+      #{sp2,jdbcType=VARCHAR}, #{sp3,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.my.model.PmsSkuStock" useGeneratedKeys="true">
+    insert into pms_sku_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="skuCode != null">
+        sku_code,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="lowStock != null">
+        low_stock,
+      </if>
+      <if test="sp1 != null">
+        sp1,
+      </if>
+      <if test="sp2 != null">
+        sp2,
+      </if>
+      <if test="sp3 != null">
+        sp3,
+      </if>
+      <if test="pic != null">
+        pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="skuCode != null">
+        #{skuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="lowStock != null">
+        #{lowStock,jdbcType=INTEGER},
+      </if>
+      <if test="sp1 != null">
+        #{sp1,jdbcType=VARCHAR},
+      </if>
+      <if test="sp2 != null">
+        #{sp2,jdbcType=VARCHAR},
+      </if>
+      <if test="sp3 != null">
+        #{sp3,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.model.PmsSkuStock">
+    update pms_sku_stock
+    <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="skuCode != null">
+        sku_code = #{skuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="lowStock != null">
+        low_stock = #{lowStock,jdbcType=INTEGER},
+      </if>
+      <if test="sp1 != null">
+        sp1 = #{sp1,jdbcType=VARCHAR},
+      </if>
+      <if test="sp2 != null">
+        sp2 = #{sp2,jdbcType=VARCHAR},
+      </if>
+      <if test="sp3 != null">
+        sp3 = #{sp3,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.model.PmsSkuStock">
+    update pms_sku_stock
+    set product_id = #{productId,jdbcType=BIGINT},
+      sku_code = #{skuCode,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      low_stock = #{lowStock,jdbcType=INTEGER},
+      sp1 = #{sp1,jdbcType=VARCHAR},
+      sp2 = #{sp2,jdbcType=VARCHAR},
+      sp3 = #{sp3,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

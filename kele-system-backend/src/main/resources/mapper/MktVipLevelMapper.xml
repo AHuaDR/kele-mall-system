@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.MktVipLevelMapper">
+  <resultMap id="BaseResultMap" type="com.my.model.MktVipLevel">
+    <id column="level" jdbcType="TINYINT" property="level" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="color_class" jdbcType="VARCHAR" property="colorClass" />
+    <result column="equity_json" jdbcType="OTHER" property="equityJson" />
+    <result column="min_growth" jdbcType="INTEGER" property="minGrowth" />
+    <result column="discount_rate" jdbcType="DECIMAL" property="discountRate" />
+    <result column="annual_fee" jdbcType="DECIMAL" property="annualFee" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="is_enabled" jdbcType="TINYINT" property="isEnabled" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `level`, `name`, icon, color_class, equity_json, min_growth, discount_rate, annual_fee, 
+    description, is_enabled, update_time
+  </sql>
+    <select id="selectAllVipLevel" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from mkt_vip_level
+    </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Byte" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mkt_vip_level
+    where `level` = #{level,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte">
+    delete from mkt_vip_level
+    where `level` = #{level,jdbcType=TINYINT}
+  </delete>
+  <insert id="insert" keyColumn="level" keyProperty="level" parameterType="com.my.model.MktVipLevel" useGeneratedKeys="true">
+    insert into mkt_vip_level (`name`, icon, color_class, 
+      equity_json, min_growth, discount_rate, 
+      annual_fee, description, is_enabled, 
+      update_time)
+    values (#{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{colorClass,jdbcType=VARCHAR}, 
+      #{equityJson,jdbcType=OTHER}, #{minGrowth,jdbcType=INTEGER}, #{discountRate,jdbcType=DECIMAL}, 
+      #{annualFee,jdbcType=DECIMAL}, #{description,jdbcType=VARCHAR}, #{isEnabled,jdbcType=TINYINT}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="level" keyProperty="level" parameterType="com.my.model.MktVipLevel" useGeneratedKeys="true">
+    insert into mkt_vip_level
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="colorClass != null">
+        color_class,
+      </if>
+      <if test="equityJson != null">
+        equity_json,
+      </if>
+      <if test="minGrowth != null">
+        min_growth,
+      </if>
+      <if test="discountRate != null">
+        discount_rate,
+      </if>
+      <if test="annualFee != null">
+        annual_fee,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="isEnabled != null">
+        is_enabled,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="colorClass != null">
+        #{colorClass,jdbcType=VARCHAR},
+      </if>
+      <if test="equityJson != null">
+        #{equityJson,jdbcType=OTHER},
+      </if>
+      <if test="minGrowth != null">
+        #{minGrowth,jdbcType=INTEGER},
+      </if>
+      <if test="discountRate != null">
+        #{discountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="annualFee != null">
+        #{annualFee,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        #{isEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.model.MktVipLevel">
+    update mkt_vip_level
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="colorClass != null">
+        color_class = #{colorClass,jdbcType=VARCHAR},
+      </if>
+      <if test="equityJson != null">
+        equity_json = #{equityJson,jdbcType=OTHER},
+      </if>
+      <if test="minGrowth != null">
+        min_growth = #{minGrowth,jdbcType=INTEGER},
+      </if>
+      <if test="discountRate != null">
+        discount_rate = #{discountRate,jdbcType=DECIMAL},
+      </if>
+      <if test="annualFee != null">
+        annual_fee = #{annualFee,jdbcType=DECIMAL},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null">
+        is_enabled = #{isEnabled,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where `level` = #{level,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.model.MktVipLevel">
+    update mkt_vip_level
+    set `name` = #{name,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      color_class = #{colorClass,jdbcType=VARCHAR},
+      equity_json = #{equityJson,jdbcType=OTHER},
+      min_growth = #{minGrowth,jdbcType=INTEGER},
+      discount_rate = #{discountRate,jdbcType=DECIMAL},
+      annual_fee = #{annualFee,jdbcType=DECIMAL},
+      description = #{description,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=TINYINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where `level` = #{level,jdbcType=TINYINT}
+  </update>
+</mapper>

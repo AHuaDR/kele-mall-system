@@ -1,0 +1,52 @@
+server:
+  port: 8080
+
+spring:
+  #?????????
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  #??????
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+  application:
+    name: kele-system-backend
+
+  # 1. ?????
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # ??????? kele_system ??????????? kele_mall????
+    url: jdbc:mysql://localhost:3306/kele_system?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+
+  # 2. Redis ?? (???data ? spring ????? datasource ??)
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      # password: 123456
+
+# ????????????????? (????????????)
+# Windows ??: D:/project/upload/
+file:
+  upload-path: D:\StudyProject\Myself\kele-mall-system\kele-uploads\
+
+# 3. MyBatis ?? (???mybatis ??????? spring ????????)
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true      # ????????
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # ????? SQL
+
+# 4. JWT ??
+jwt:
+  tokenHeader: Authorization # HTTP?????
+  tokenHead: 'Bearer '       # Token??
+  secret: my-secret-key-colamall-admin-and-app-secure # ??
+  expiration: 604800         # ????

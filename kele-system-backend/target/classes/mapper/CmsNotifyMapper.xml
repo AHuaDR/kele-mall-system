@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.CmsNotifyMapper">
+  <resultMap id="BaseResultMap" type="com.my.model.CmsNotify">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="target_type" jdbcType="INTEGER" property="targetType" />
+    <result column="target_member_ids" jdbcType="VARCHAR" property="targetMemberIds" />
+    <result column="publisher_id" jdbcType="BIGINT" property="publisherId" />
+    <result column="send_status" jdbcType="INTEGER" property="sendStatus" />
+    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, content, icon, `type`, target_type, target_member_ids, publisher_id, send_status, 
+    send_time, create_time
+  </sql>
+
+    <select id="selectAllNotify" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cms_notify
+    </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cms_notify
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cms_notify
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.my.model.CmsNotify" useGeneratedKeys="true">
+    insert into cms_notify (title, content, icon, 
+      `type`, target_type, target_member_ids, 
+      publisher_id, send_status, send_time, 
+      create_time)
+    values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{targetType,jdbcType=INTEGER}, #{targetMemberIds,jdbcType=VARCHAR}, 
+      #{publisherId,jdbcType=BIGINT}, #{sendStatus,jdbcType=INTEGER}, #{sendTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.my.model.CmsNotify" useGeneratedKeys="true">
+    insert into cms_notify
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="targetType != null">
+        target_type,
+      </if>
+      <if test="targetMemberIds != null">
+        target_member_ids,
+      </if>
+      <if test="publisherId != null">
+        publisher_id,
+      </if>
+      <if test="sendStatus != null">
+        send_status,
+      </if>
+      <if test="sendTime != null">
+        send_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="targetType != null">
+        #{targetType,jdbcType=INTEGER},
+      </if>
+      <if test="targetMemberIds != null">
+        #{targetMemberIds,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherId != null">
+        #{publisherId,jdbcType=BIGINT},
+      </if>
+      <if test="sendStatus != null">
+        #{sendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.model.CmsNotify">
+    update cms_notify
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="targetType != null">
+        target_type = #{targetType,jdbcType=INTEGER},
+      </if>
+      <if test="targetMemberIds != null">
+        target_member_ids = #{targetMemberIds,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherId != null">
+        publisher_id = #{publisherId,jdbcType=BIGINT},
+      </if>
+      <if test="sendStatus != null">
+        send_status = #{sendStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sendTime != null">
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.model.CmsNotify">
+    update cms_notify
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=INTEGER},
+      target_type = #{targetType,jdbcType=INTEGER},
+      target_member_ids = #{targetMemberIds,jdbcType=VARCHAR},
+      publisher_id = #{publisherId,jdbcType=BIGINT},
+      send_status = #{sendStatus,jdbcType=INTEGER},
+      send_time = #{sendTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  touch-action: manipulation; /* 关键：告诉浏览器由应用处理手势，禁用默认的双击缩放 */
+  -ms-content-zooming: none; /* 针对旧版 Edge/IE */
+  overflow-x: hidden; /* 防止左右滑动出现白边 */
+}
+
+/* 之前定义的背景色 */
+body {
+  background-color: #F2F4F8;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  color: #1A1A1A;
+}
+
+.van-nav-bar::after { display: none; }

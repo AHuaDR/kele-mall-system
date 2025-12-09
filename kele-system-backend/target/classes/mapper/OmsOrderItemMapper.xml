@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.OmsOrderItemMapper">
+  <resultMap id="BaseResultMap" type="com.my.model.OmsOrderItem">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_sn" jdbcType="VARCHAR" property="orderSn" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="product_pic" jdbcType="VARCHAR" property="productPic" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_sn" jdbcType="VARCHAR" property="productSn" />
+    <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
+    <result column="product_quantity" jdbcType="INTEGER" property="productQuantity" />
+    <result column="product_sku_id" jdbcType="BIGINT" property="productSkuId" />
+    <result column="product_attr" jdbcType="VARCHAR" property="productAttr" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, order_sn, product_id, product_pic, product_name, product_sn, product_price, 
+    product_quantity, product_sku_id, product_attr
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from oms_order_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from oms_order_item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.my.model.OmsOrderItem" useGeneratedKeys="true">
+    insert into oms_order_item (order_id, order_sn, product_id, 
+      product_pic, product_name, product_sn, 
+      product_price, product_quantity, product_sku_id, 
+      product_attr)
+    values (#{orderId,jdbcType=BIGINT}, #{orderSn,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT}, 
+      #{productPic,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{productSn,jdbcType=VARCHAR}, 
+      #{productPrice,jdbcType=DECIMAL}, #{productQuantity,jdbcType=INTEGER}, #{productSkuId,jdbcType=BIGINT}, 
+      #{productAttr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.my.model.OmsOrderItem" useGeneratedKeys="true">
+    insert into oms_order_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderSn != null">
+        order_sn,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="productPic != null">
+        product_pic,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="productSn != null">
+        product_sn,
+      </if>
+      <if test="productPrice != null">
+        product_price,
+      </if>
+      <if test="productQuantity != null">
+        product_quantity,
+      </if>
+      <if test="productSkuId != null">
+        product_sku_id,
+      </if>
+      <if test="productAttr != null">
+        product_attr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="productPic != null">
+        #{productPic,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productSn != null">
+        #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productQuantity != null">
+        #{productQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productSkuId != null">
+        #{productSkuId,jdbcType=BIGINT},
+      </if>
+      <if test="productAttr != null">
+        #{productAttr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.model.OmsOrderItem">
+    update oms_order_item
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderSn != null">
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="productPic != null">
+        product_pic = #{productPic,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productSn != null">
+        product_sn = #{productSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        product_price = #{productPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="productQuantity != null">
+        product_quantity = #{productQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="productSkuId != null">
+        product_sku_id = #{productSkuId,jdbcType=BIGINT},
+      </if>
+      <if test="productAttr != null">
+        product_attr = #{productAttr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.model.OmsOrderItem">
+    update oms_order_item
+    set order_id = #{orderId,jdbcType=BIGINT},
+      order_sn = #{orderSn,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=BIGINT},
+      product_pic = #{productPic,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_sn = #{productSn,jdbcType=VARCHAR},
+      product_price = #{productPrice,jdbcType=DECIMAL},
+      product_quantity = #{productQuantity,jdbcType=INTEGER},
+      product_sku_id = #{productSkuId,jdbcType=BIGINT},
+      product_attr = #{productAttr,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

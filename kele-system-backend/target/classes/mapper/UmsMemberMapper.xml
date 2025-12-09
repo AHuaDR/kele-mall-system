@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.mapper.UmsMemberMapper">
+  <resultMap id="BaseResultMap" type="com.my.model.UmsMember">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="gender" jdbcType="BOOLEAN" property="gender" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="level_id" jdbcType="BIGINT" property="levelId" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="status" jdbcType="BOOLEAN" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, `password`, nickname, phone, avatar, gender, birthday, level_id, point, 
+    `status`, create_time
+  </sql>
+
+    <select id="selectAllYesterdayNewMember" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        COUNT(*)
+        from ums_member
+        <where>
+            <![CDATA[ create_time >= DATE_SUB(CURDATE(), INTERVAL 1 DAY) ]]>
+            <![CDATA[ AND create_time < CURDATE() ]]>
+        </where>
+    </select>
+    <select id="selectAllTodayNewMember" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+            COUNT(*)
+        from ums_member
+        <where>
+            <![CDATA[ create_time >= CURDATE() ]]>
+            <![CDATA[ AND create_time < DATE_ADD(CURDATE(), INTERVAL 1 DAY) ]]>
+        </where>
+    </select>
+    <select id="selectAllMember" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ums_member
+        <where>
+            <if test="nickname != null and nickname != ''">
+                AND nickname = #{nickname,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ums_member
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ums_member
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.my.model.UmsMember" useGeneratedKeys="true">
+    insert into ums_member (username, `password`, nickname, 
+      phone, avatar, gender, 
+      birthday, level_id, point, 
+      `status`, create_time)
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{gender,jdbcType=BOOLEAN}, 
+      #{birthday,jdbcType=DATE}, #{levelId,jdbcType=BIGINT}, #{point,jdbcType=INTEGER}, 
+      #{status,jdbcType=BOOLEAN}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.my.model.UmsMember" useGeneratedKeys="true">
+    insert into ums_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="levelId != null">
+        level_id,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=BOOLEAN},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="levelId != null">
+        #{levelId,jdbcType=BIGINT},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.model.UmsMember">
+    update ums_member
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=BOOLEAN},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="levelId != null">
+        level_id = #{levelId,jdbcType=BIGINT},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.model.UmsMember">
+    update ums_member
+    set username = #{username,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=BOOLEAN},
+      birthday = #{birthday,jdbcType=DATE},
+      level_id = #{levelId,jdbcType=BIGINT},
+      point = #{point,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
